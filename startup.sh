@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e 
 ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE
 ORACLE_HOME=$ORACLE_BASE/product/10.2.0/db_1; export ORACLE_HOME
 #ORACLE_SID=TSH1; export ORACLE_SID
@@ -23,7 +24,6 @@ if [  -f $ORACLE_HOME/network/admin/init ];then
 else 
      touch $ORACLE_HOME/network/admin/init
      gosu oracle netca /silent /responseFile /home/oracle/netca.rsp
-
 fi
 
 while :
