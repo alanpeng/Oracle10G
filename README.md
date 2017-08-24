@@ -1,16 +1,19 @@
 It's oracle 10G  Dockerfile
 
-Run docker images,for example
+Build the oracle images,for example:
 
-docker run -itd --name -p 1521:1521  oracle10g oracle10g
+Docker build -t oracle10 .
+
+Run oracle docker images,for example:
+
+docker run -itd --name oracle01 -p 1521:1521  oracle10g oracle10g
 
 data persistence,for example 
 
-docker run -itd --name -p 1521:1521  -v myhome/data:/u04/oradata/ oracle10g oracle10g
+docker run -itd --name oracle01 -p 1521:1521  -v myhome/data:/u04/oradata/ oracle10g oracle10g
 
-
-问题
-1. you can't  set the kernel paramter in oracle docker contianer,you must run the it with --privileged 
+Issue
+1. you can't deploy the kernel paramter in oracle docker contianer,you must run  it with --privileged 
  
 ```
 kernel.shmall = 2097152
@@ -28,12 +31,14 @@ net.core.wmem_max=262144
 ```
 2. ORA-27125: unable to create shared memory segment 
 
+```
 DBCA_PROGRESS : 4%
 ORA-01034: ORACLE not available
 ORA-01034: ORACLE not available
 solution
 # id oracle
-
 uid=1000(oracle) gid=501(oinstall) groups=501(oinstall),502(dba)
 
 echo 502 > /proc/sys/vm/hugetlb_shm_group
+
+```
